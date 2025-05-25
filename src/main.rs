@@ -1,44 +1,36 @@
-use std::{collections::HashMap};
-
-enum TaskStatus {
-    Pending,
-    InProgress,
-    Completed,
-    Failed,
-}
-
-
-struct Task{
-    id: String,
-    payload: HashMap<String, String>,
-    retries: i32,
-    max_retries: i32,
-    task_status: TaskStatus
-
-}
-
-
-impl Task {
-    fn new(id: String, payload: HashMap<String, String>, max_retries: i32, task_status: TaskStatus) -> Self {
-
-        return Task {
-            id,
-            payload,
-            retries: 0,
-            max_retries: 5,
-            task_status: TaskStatus::InProgress
-        }
-
-    }
-}
+mod ampq;
+mod task_queue;
+mod task_registry;
+mod task;
+use ampq::connection::setup_messaging;
 
 
 
 
 
 
-fn main() {
-    let mut task = Task::new("1".to_string(), HashMap::new(), 5, TaskStatus::Pending);
 
-    println!("Hello, world!");
+
+
+
+// // sample task macro usage
+// #[task(name = "example_task")]
+// async fn example_task(payload: Value, task: Task) -> Result<(), Box<dyn std::error::Error>> {
+//     println!("Running task: {}", task.id);
+//     println!("Payload: {:?}", payload);
+//     Ok(())
+// }
+
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
+env_logger::init();
+let queue_names: Vec<&'static str> = vec!["test_queue_1", "test_queue_2"];
+setup_messaging(&queue_names).await.expect("Failed to setup messaging");
+println!("Messaging setup complete");
+// // sample task macro usage
+
+tokio::signal::ctrl_c().await?;
+println!("Shutdown signal received.");
+Ok(())
+
 }
