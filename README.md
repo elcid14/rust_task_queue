@@ -1,7 +1,7 @@
 Rust Task Queue
 
 A sample project to understand the inner workings of task queues and provide a Celery-like experience in Rust.
-GitHub+1GitHub+1
+
 Overview
 
 This project aims to explore and demonstrate the implementation of a task queue system in Rust, drawing inspiration from Python's Celery. It serves as an educational tool to delve into concepts such as task scheduling, worker management, and asynchronous processing in Rust.
@@ -22,7 +22,8 @@ Prerequisites
     Rust (latest stable version)
 
     Cargo (Rust's package manager)
-    GitHub+5GitHub+5GitHub+5
+
+    Rabbitmq running locally(I used docker)
 
 Installation
 
@@ -57,9 +58,7 @@ To use the task queue:
 
     Start worker processes to process tasks.
 
-    Enqueue tasks for execution.
-    GitHub+4GitHub+4GitHub+4
-    GitHub+1GitHub+1
+    Enqueue tasks for execution via rabbitmq.
 
 Note: Detailed examples and usage instructions will be provided in future updates.
 Contributing
